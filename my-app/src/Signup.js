@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Dashboard from "./Dashboard";
+import './Signup.css'
+
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -35,6 +37,8 @@ const Signup = () => {
             localStorage.setItem('isAuthenticated', true);
             localStorage.setItem('username', response.data.username);
             localStorage.setItem('userType', response.data.userType);
+            localStorage.setItem('userId', response.data.userId);
+
 
             // You can optionally redirect the user or show a success message
         } catch (error) {
@@ -46,70 +50,75 @@ const Signup = () => {
 
     return (
 
-        <div>
+        <div className="signup-container">
             {signupSuccess ? (
-                <Dashboard />
-            ) : (<>
-                <h2>Sign Up</h2>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Username:</label>
-                        <input
-                            type="text"
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label>Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div>
-                        <label>User Type:</label>
-                        <div>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="userType"
-                                    value="landlord"
-                                    checked={formData.userType === 'landlord'}
-                                    onChange={handleChange}
-                                />
-                                Landlord
-                            </label>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="userType"
-                                    value="tenant"
-                                    checked={formData.userType === 'tenant'}
-                                    onChange={handleChange}
-                                />
-                                Tenant
-                            </label>
+                <Dashboard/>
+            ) : (
+                <div className="signup-form-container">
+                    <h2 className="signup-title">Sign Up</h2>
+                    <form onSubmit={handleSubmit} className="signup-form">
+                        <div className="form-group">
+                            <label htmlFor="username">Username:</label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={formData.username}
+                                onChange={handleChange}
+                                required
+                            />
                         </div>
-                    </div>
-
-                    <button type="submit">Sign Up</button>
-                </form>
-            </>)}
-
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>User Type:</label>
+                            <div className="radio-group">
+                                <label className="radio-label">
+                                    <input
+                                        type="radio"
+                                        name="userType"
+                                        value="landlord"
+                                        checked={formData.userType === 'landlord'}
+                                        onChange={handleChange}
+                                    />
+                                    Landlord
+                                </label>
+                                <label className="radio-label">
+                                    <input
+                                        type="radio"
+                                        name="userType"
+                                        value="tenant"
+                                        checked={formData.userType === 'tenant'}
+                                        onChange={handleChange}
+                                    />
+                                    Tenant
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" className="signup-button">Sign Up</button>
+                    </form>
+                </div>
+            )}
         </div>
     );
 };

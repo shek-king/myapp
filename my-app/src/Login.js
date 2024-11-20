@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Dashboard from "./Dashboard";
+import './Login.css'
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -19,12 +20,15 @@ const Login = () => {
 
         try {
             // Make a POST request to your server's login endpoint
-            const response = await axios.post('/api/login', formData);
+            const response = await axios.post('http://localhost:8000/api/user/login', formData);
 
             // Handle the response from the server
             console.log(response.data);
             setSignupSuccess(true); // Set signupSuccess to true after successful sign-up
-
+            localStorage.setItem('isAuthenticated', true);
+            localStorage.setItem('username', response.data.username);
+            localStorage.setItem('userType', response.data.userType);
+            localStorage.setItem('userId', response.data.userId);
 
             // You can optionally store the user's authentication token in localStorage or cookies
             // and redirect the user to the dashboard or home page
@@ -36,32 +40,39 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className="login-container">
             {signupSuccess ? (
-                <Dashboard />
-            ) : (<>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
+                <Dashboard/>
+            ) : (
+                <div className="login-form-container">
+                    <h2 className="login-title">Login</h2>
+                    <form onSubmit={handleSubmit} className="login-form">
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <button type="submit" className="login-button">Login</button>
+                    </form>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form> </>)}
+            )}
         </div>
     );
 };

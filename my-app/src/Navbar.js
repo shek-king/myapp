@@ -6,6 +6,9 @@ import './Navbar.css';
 const Navbar = () => {
     return (
         <nav className="navbar">
+            <Link to="/landloardDashboard">View Property</Link>
+            <Link to="/add-property">Add Property</Link>
+
         </nav>
     );
 }

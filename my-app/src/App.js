@@ -5,6 +5,9 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import LandingPage from "./LandingPage";
 import TenantDashboard from "./TenantDashboard";
 import LandloardDashboard from "./LandloardDashboard";
+import AddProperty from "./AddProperty";
+import PropertyDetail from "./PropertyDetail";
+import EditProperty from "./EditProperty";
 
 const App = () => {
 
@@ -16,6 +19,9 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/tenantDashboard" element={<TenantDashboard />} />
               <Route path="/landloardDashboard" element={<LandloardDashboard />} />
+              <Route path="/add-property" element={<AddProperty />} />
+              <Route path="/property-detail/:id" element={<PropertyDetail />} />
+              <Route path="/properties/edit/:id" element={<EditProperty />} />
           </Routes>
       </Router>
   );

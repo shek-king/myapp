@@ -13,12 +13,17 @@ const LandloardDashboard = () => {
 
     useEffect(() => {
         const username = localStorage.getItem("username")
+        const landlord = localStorage.getItem("userId")
         setUsername(username)
 
         // Fetch properties from an API or any other data source
         const fetchProperties = async () => {
+            const payload = {
+                landlord : landlord
+            }
             try {
-                const response = await axios.get('http://localhost:8000/api/properties/all');
+                const response =
+                    await axios.post('http://localhost:8000/api/properties/getLandlordProperties', payload);
                 console.log(response.data)
 
                 setProperties(response.data);
@@ -32,12 +37,20 @@ const LandloardDashboard = () => {
 
     return (
         <div>
+            <Navbar />
             <h2>Welcome {username} the Landloard Dashboard </h2>
-            <div>
+            {properties.length>0 && (<div>
                 {properties.map((property) => (
                     <PropertyCard key={property.id} property={property}/>
                 ))}
-            </div>
+            </div>)}
+
+            {properties.length<=0 && (<div>
+                <h2>You don't have any properties listed yet.
+                    Please begin by adding some properties. <br />
+                Click the <b style={{color: "green"}}>Add property</b> button above</h2>
+            </div>)}
+
         </div>
     );
 };
