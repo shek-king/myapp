@@ -13,9 +13,7 @@ const PropertyCard = ({ property , hasApplied}) => {
         const userId = localStorage.getItem("userId")
         setUserType(userType)
         setUserId(userId)
-
     }, []);
-
 
     const handleApplyNow = async(e, propertyId) => {
         e.preventDefault(); // Prevent the link from being followed
@@ -37,7 +35,7 @@ const PropertyCard = ({ property , hasApplied}) => {
         }
     };
 
-    const { _id, name, address, numberOfRooms, price, description, size, title } = property;
+    const { _id, name, address, numberOfRooms, price, size, title } = property;
     const imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQACNVbmQg3xxv0QKmUNsuBdFF95uoCBl6Ldg&s";
 
     return (

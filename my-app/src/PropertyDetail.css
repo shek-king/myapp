@@ -132,4 +132,38 @@
     margin: 5px 0;
 }
 
+.tenant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tenant-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.approve-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.approve-btn, .reject-btn {
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
 

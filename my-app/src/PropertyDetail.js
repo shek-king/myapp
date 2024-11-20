@@ -103,6 +103,33 @@ const PropertyDetail = () => {
         navigate(`/properties/edit/${id}`);
     };
 
+    const handleApprove = async (tenantId) => {
+        try {
+            await axios.post(`/api/approve-tenant/${tenantId}`);
+            // Update the local state or refetch the tenants list
+            // For example:
+            // setAppliedTenants(prevTenants => prevTenants.filter(tenant => tenant._id !== tenantId));
+            alert('Tenant approved successfully');
+        } catch (error) {
+            console.error('Error approving tenant:', error);
+            alert('Failed to approve tenant');
+        }
+    };
+
+    const handleReject = async (tenantId) => {
+        try {
+            await axios.post(`/api/reject-tenant/${tenantId}`);
+            // Update the local state or refetch the tenants list
+            // For example:
+            // setAppliedTenants(prevTenants => prevTenants.filter(tenant => tenant._id !== tenantId));
+            alert('Tenant rejected successfully');
+        } catch (error) {
+            console.error('Error rejecting tenant:', error);
+            alert('Failed to reject tenant');
+        }
+    };
+
+
     const imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQACNVbmQg3xxv0QKmUNsuBdFF95uoCBl6Ldg&s";
 
     return (
@@ -146,9 +173,25 @@ const PropertyDetail = () => {
                         <ul className="tenant-list">
                             {appliedTenants.map(tenant => (
                                 <li key={tenant._id} className="tenant-item">
-                                    <p><strong>Name:</strong> {tenant.username}</p>
-                                    <p><strong>Email:</strong> {tenant.email}</p>
-                                    {/* Add more tenant details as needed */}
+                                    <div className="tenant-info">
+                                        <p><strong>Name:</strong> {tenant.username}</p>
+                                        <p><strong>Email:</strong> {tenant.email}</p>
+                                        {/* Add more tenant details as needed */}
+                                    </div>
+                                    <div className="tenant-actions">
+                                        <button
+                                            className="approve-btn"
+                                            onClick={() => handleApprove(tenant._id)}
+                                        >
+                                            Approve
+                                        </button>
+                                        <button
+                                            className="reject-btn"
+                                            onClick={() => handleReject(tenant._id)}
+                                        >
+                                            Reject
+                                        </button>
+                                    </div>
                                 </li>
                             ))}
                         </ul>

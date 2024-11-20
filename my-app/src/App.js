@@ -8,6 +8,8 @@ import LandloardDashboard from "./LandloardDashboard";
 import AddProperty from "./AddProperty";
 import PropertyDetail from "./PropertyDetail";
 import EditProperty from "./EditProperty";
+import TenantApplication from "./TenantApplication";
+import TenantProfile from "./TenantProfile";
 
 const App = () => {
 
@@ -22,6 +24,8 @@ const App = () => {
               <Route path="/add-property" element={<AddProperty />} />
               <Route path="/property-detail/:id" element={<PropertyDetail />} />
               <Route path="/properties/edit/:id" element={<EditProperty />} />
+              <Route path="/tenantProfile" element={<TenantProfile />} />
+              <Route path="/view-applications" element={<TenantApplication />} />
           </Routes>
       </Router>
   );

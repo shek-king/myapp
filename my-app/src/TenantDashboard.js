@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropertyCard from "./PropertyCard";
+import TenantNavBar from "./TenantNavBar";
 
 const TenantDashboard = () => {
     const [properties, setProperties] = useState([]);
@@ -44,6 +45,7 @@ const TenantDashboard = () => {
 
     return (
         <div>
+            <TenantNavBar />
             <h2>Welcome to the Tenant Dashboard</h2>
 
             <div>
