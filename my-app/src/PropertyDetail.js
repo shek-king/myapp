@@ -34,11 +34,16 @@ const PropertyDetail = () => {
                 setProperty(response.data);
 
                 console.log("printing applied list")
-                console.log(response.data.tenantsApplied)
+                const tenantList = response.data.tenantsApplied
+                console.log(tenantList)
                 console.log("dbg cond")
-                console.log(userType)
-                console.log(userType === 'landlord')
-                console.log(response.data.tenantsApplied.length)
+                console.log(tenantList.includes(userId))
+
+                if(tenantList.includes(userId)) {
+                    console.log("tenant has applied")
+                    setHasTenantApplied(true)
+                }
+
 
                 if (userType === 'landlord' && response.data.tenantsApplied.length > 0) {
                     console.log("inside if cond")
@@ -86,6 +91,7 @@ const PropertyDetail = () => {
             const response = await axios.post(`http://localhost:8000/api/properties/applyProperty`, payload);
             console.log(response.data.message);
             window.alert("Applied for property successfully")
+            setHasTenantApplied(true)
         } catch (error) {
             console.error('Error applying for property:', error);
             window.alert("Error while applying for property")

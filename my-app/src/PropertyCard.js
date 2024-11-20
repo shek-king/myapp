@@ -6,6 +6,7 @@ import axios from "axios";
 const PropertyCard = ({ property , hasApplied}) => {
     const [userType, setUserType] = useState('landlord');
     const [userId, setUserId] = useState('');
+    const [hasUserApplied, setHasUserApplied] = useState(hasApplied)
 
     useEffect(() => {
         const userType = localStorage.getItem("userType")
@@ -29,6 +30,7 @@ const PropertyCard = ({ property , hasApplied}) => {
             const response = await axios.post(`http://localhost:8000/api/properties/applyProperty`, payload);
             console.log(response.data.message);
             window.alert("Applied for property successfully")
+            setHasUserApplied(true)
         } catch (error) {
             console.error('Error applying for property:', error);
             window.alert("Error while applying for property")
@@ -58,7 +60,7 @@ const PropertyCard = ({ property , hasApplied}) => {
                 <div className="property-price-booking">
                     {price && <p className="property-price">${price.toLocaleString()}</p>}
                     {userType === 'tenant' && (
-                        hasApplied ? (
+                        hasUserApplied ? (
                             <button disabled className="applied-button">
                                 Applied
                             </button>
